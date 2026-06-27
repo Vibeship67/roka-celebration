@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Roka, Arbuda & Pritish! 🎉</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 4em;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            animation: bounce 1s infinite;
+        }
+
+        .names {
+            font-size: 2.5em;
+            color: #FFD700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .celebrate-btn {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.5em;
+            color: #333;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            margin-top: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .celebrate-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .celebrate-btn:active {
+            transform: scale(0.95);
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #FFD700;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .emoji {
+            font-size: 3em;
+            display: inline-block;
+            animation: spin 4s linear infinite;
+            margin: 0 10px;
+        }
+
+        .celebration-text {
+            font-size: 1.8em;
+            color: white;
+            margin-top: 40px;
+            animation: bounce 2s infinite;
+        }
+
+        .sparkles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sparkles" id="sparkles"></div>
+    
+    <div class="container">
+        <h1>✨ Happy Roka! ✨</h1>
+        
+        <div class="emoji">
+            🎉
+        </div>
+        
+        <div class="names">
+            Arbuda & Pritish
+        </div>
+        
+        <p class="celebration-text">May your union be filled with joy and blessings!</p>
+        
+        <button class="celebrate-btn" onclick="celebrate()">
+            🎊 Let's Celebrate! 🎊
+        </button>
+    </div>
+
+    <script>
+        // Create sparkles in background
+        function createSparkles() {
+            const sparklesContainer = document.getElementById('sparkles');
+            for (let i = 0; i < 50; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 2 + 's';
+                sparklesContainer.appendChild(sparkle);
+            }
+        }
+
+        // Create confetti effect
+        function createConfetti() {
+            const colors = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animation = `fall ${2 + Math.random() * 1}s linear forwards`;
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                document.body.appendChild(confetti);
+                
+                // Remove confetti after animation
+                setTimeout(() => confetti.remove(), 3500);
+            }
+        }
+
+        // Main celebrate function
+        function celebrate() {
+            createConfetti();
+            
+            // Shake effect
+            document.body.style.animation = 'none';
+            setTimeout(() => {
+                document.body.style.animation = 'shake 0.5s';
+            }, 10);
+            
+            // Play a happy sound (using Web Audio API)
+            playHappySound();
+            
+            // Extra confetti bursts
+            setTimeout(() => createConfetti(), 300);
+            setTimeout(() => createConfetti(), 600);
+        }
+
+        // Create a happy beep sound
+        function playHappySound() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
+            
+            notes.forEach((freq, index) => {
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                osc.connect(gain);
+                gain.connect(audioContext.destination);
+                
+                osc.frequency.value = freq;
+                osc.type = 'sine';
+                
+                gain.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                
+                osc.start(audioContext.currentTime + index * 0.1);
+                osc.stop(audioContext.currentTime + index * 0.1 + 0.3);
+            });
+        }
+
+        // Add shake animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+                20%, 40%, 60%, 80% { transform: translateX(10px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize sparkles on page load
+        window.addEventListener('load', createSparkles);
+    </script>
+</body>
+</html>
